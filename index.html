@@ -1,14 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<meta name="description" content="Simple Todo-list application">
-	<title>Todo list</title>
+	<title>Vue.js To do list</title>
 
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Custom styles -->
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="js/main.js" defer></script>
 </head>
-<body id="body">
+<body>
+	<form id="app" class="todo-form form-group">
+		<h1>Simple To-do List</h1>
+		<div class="input-group todo-input-wrapper">
+			<input v-model="text" type="text" name="todo-text" class="todo-input form-control" placeholder="Enter text" maxlength="50"  @keydown.enter.prevent="addNewItem" autofocus>
+			<span class="input-group-btn">
+				<button @click.prevent="addNewItem" class="btn btn-secondary" type="button">Add</button>
+			</span>
+		</div>
 
+		<transition-group tag="ul" class="list-group" name="todo-list">
+		  <li class="list-group-item"  v-for="listItem, index in todoList" :key="listItem.creationTime"  v-if="!listItem.done">
+		   <input type="checkbox" :id="listItem.creationTime" v-model="listItem.done">
+    			<label :for="listItem.creationTime">{{listItem.text}}</label>
+				<span class="badge" @click="deleteItem(index)">x</span>
+		  </li>
+		</transition-group>
+		<transition-group tag="ul" class="list-group" name="todo-list">
+		  <li class="list-group-item"  v-for="listItem, index in todoList" :key="listItem.creationTime" v-if="listItem.done">
+		  	<input type="checkbox" :id="listItem.creationTime" v-model="listItem.done">
+    			<label :for="listItem.creationTime"><strike>{{listItem.text}}</strike></label>
+				<span class="badge" @click="deleteItem(index)">x</span>
+		  </li>
+		</transition-group>
+	</form>
 </body>
 </html>

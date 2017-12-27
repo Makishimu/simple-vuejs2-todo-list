@@ -7,10 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "java",
-    "script",
+    "javascript",
     "vue.js"
   ],
   "author": "Makishimu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Makishimu/simple-vuejs2-todo-list.git"
+  },
   "license": "ISC"
 }
